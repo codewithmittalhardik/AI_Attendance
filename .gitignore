@@ -1,0 +1,18 @@
+# Python environment
+.venv/
+env/
+venv/
+ENV/
+bin/
+lib/
+share/
+include/
+*.pyc
+__pycache__/
+db.sqlite3
+db.sqlite3-journal
+staticfiles/
+media/student_photos/
+.DS_Store
+.env
+fix_models.py

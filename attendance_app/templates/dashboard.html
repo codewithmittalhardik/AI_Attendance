@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | Vantage AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 min-h-screen text-slate-800">
+    <nav class="bg-white/70 backdrop-blur-md border-b border-white/50 sticky top-0 z-50 shadow-sm relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+          <div class="flex items-center gap-2 sm:gap-3">
+            <div class="bg-gradient-to-br from-indigo-500 to-fuchsia-500 p-2 sm:p-2.5 rounded-xl shadow-lg shadow-indigo-200">
+              <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path>
+              </svg>
+            </div>
+            <span class="font-extrabold text-xl sm:text-2xl tracking-tight text-slate-900">Vantage<span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-fuchsia-500">AI</span></span>
+          </div>
+
+          <div class="hidden md:flex items-center gap-4">
+            <form id="desktop-date-form" method="GET" class="relative flex items-center">
+              <input type="date" name="date" value="{{ input_date }}" onchange="document.getElementById('desktop-date-form').submit()" class="text-sm font-bold text-indigo-700 bg-indigo-50 px-3 py-1.5 rounded-xl shadow-sm border border-indigo-100 focus:ring-2 focus:ring-indigo-500 outline-none cursor-pointer transition-all hover:bg-indigo-100" />
+            </form>
+            <a href="{% url 'add_student' %}" class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-bold text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-fuchsia-500 rounded-xl shadow-md shadow-purple-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path>
+              </svg>Add Students
+            </a>
+          </div>
+
+          <div class="flex md:hidden items-center">
+            <button onclick="toggleMenu('mobile-menu-dashboard', 'icon-open-dash', 'icon-close-dash')" class="text-slate-500 hover:text-indigo-600 focus:outline-none p-2 bg-white/50 rounded-lg border border-slate-200">
+              <svg id="icon-open-dash" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+              </svg>
+              <svg id="icon-close-dash" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="mobile-menu-dashboard" class="hidden md:hidden absolute w-full bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-xl origin-top">
+        <div class="px-4 pt-4 pb-6 space-y-4">
+          <form id="mobile-date-form" method="GET" class="w-full">
+            <input type="date" name="date" value="{{ input_date }}" onchange="document.getElementById('mobile-date-form').submit()" class="w-full text-center text-sm font-bold text-indigo-700 bg-indigo-50 py-3 rounded-xl border border-indigo-100 focus:ring-2 focus:ring-indigo-500 outline-none cursor-pointer" />
+          </form>
+          <a href="{% url 'add_student' %}" class="flex items-center justify-center w-full px-5 py-3.5 text-sm font-bold text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-fuchsia-500 rounded-xl shadow-md">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path>
+            </svg>Add Students
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <div class="mb-6 sm:mb-8 text-center sm:text-left">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Classroom Overview</h1>
+        <p class="text-slate-500 text-xs sm:text-sm mt-1 font-medium">Live biometric attendance tracking via smart glasses.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-8">
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl shadow-indigo-100/50 border border-white p-5 sm:p-6 flex items-center justify-between relative overflow-hidden">
+          <div class="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 rounded-full bg-blue-100 blur-2xl opacity-60"></div>
+          <div class="relative z-10">
+            <p class="text-xs sm:text-sm font-bold text-slate-500 mb-1 uppercase tracking-wider">Total Registered</p>
+            <p class="text-3xl sm:text-4xl font-black text-slate-800">{{ total_students }}</p>
+          </div>
+          <div class="relative z-10 bg-gradient-to-br from-blue-100 to-blue-200 p-3 sm:p-4 rounded-2xl text-blue-600 shadow-inner">
+            <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+          </div>
+        </div>
+
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl shadow-emerald-100/50 border border-white p-5 sm:p-6 flex items-center justify-between relative overflow-hidden">
+          <div class="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 rounded-full bg-emerald-100 blur-2xl opacity-60"></div>
+          <div class="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-emerald-400 to-teal-500 rounded-l-2xl"></div>
+          <div class="relative z-10 ml-2">
+            <p class="text-xs sm:text-sm font-bold text-slate-500 mb-1 uppercase tracking-wider">Present Today</p>
+            <p class="text-3xl sm:text-4xl font-black text-slate-800">{{ present_count }}</p>
+          </div>
+          <div class="relative z-10 bg-gradient-to-br from-emerald-100 to-teal-200 p-3 sm:p-4 rounded-2xl text-emerald-700 shadow-inner">
+            <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+        </div>
+
+        <div id="status-card" class="bg-gradient-to-br from-slate-600 via-slate-700 to-slate-800 rounded-2xl shadow-xl shadow-slate-200 border border-slate-500 p-5 sm:p-6 flex items-center justify-between text-white relative overflow-hidden transition-all duration-500">
+          <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-50"></div>
+          <div class="relative z-10">
+            <p class="text-indigo-100 text-xs sm:text-sm font-bold mb-1 uppercase tracking-wider">Hardware Status</p>
+            <div class="flex items-center gap-2">
+              <span class="relative flex h-3 w-3 sm:h-3.5 sm:w-3.5">
+                <span id="status-ping" class="hidden absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span id="status-dot" class="relative inline-flex rounded-full h-3 w-3 sm:h-3.5 sm:w-3.5 bg-slate-400"></span>
+              </span>
+              <p id="status-text" class="text-xl sm:text-2xl font-black tracking-tight text-slate-300">Offline</p>
+            </div>
+          </div>
+          <div class="relative z-10 bg-white/10 p-3 sm:p-4 rounded-2xl backdrop-blur-md border border-white/10 hidden sm:block">
+            <svg class="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white/80 backdrop-blur-xl border border-white rounded-2xl shadow-xl shadow-slate-200/50 overflow-hidden w-full">
+        <div class="px-4 sm:px-6 py-4 sm:py-5 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-white/50">
+          <h3 class="font-extrabold text-slate-800 text-base sm:text-lg">Live Attendance Log</h3>
+          <span class="text-[10px] sm:text-xs font-bold text-indigo-600 bg-indigo-50 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full border border-indigo-100 shadow-sm uppercase tracking-wider self-start sm:self-auto">Updated just now</span>
+        </div>
+
+        <div class="overflow-x-auto w-full">
+          <table class="w-full text-left border-collapse min-w-[600px]">
+            <thead>
+              <tr class="bg-slate-50/50 text-slate-500 text-[10px] sm:text-xs uppercase tracking-wider font-bold">
+                <th class="px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-100">Student Profile</th>
+                <th class="px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-100">Roll Number</th>
+                <th class="px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-100">Time Scanned</th>
+                <th class="px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-100">Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-50">
+              {% for record in records %}
+                <tr class="hover:bg-indigo-50/30 transition duration-200 ease-in-out group">
+                  <td class="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0">
+                        {% if record.student.photo %}
+                          <img class="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover border-2 border-white shadow-md" src="{{ record.student.photo.url }}" alt="{{ record.student.name }}" />
+                        {% else %}
+                          <div class="h-full w-full rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-base sm:text-lg shadow-inner">{{ record.student.name|slice:':1' }}</div>
+                        {% endif %}
+                      </div>
+
+                      <div class="ml-3 sm:ml-4">
+                        <div class="text-xs sm:text-sm font-bold text-slate-800">{{ record.student.name }}</div>
+                        <div class="text-[10px] sm:text-xs font-medium text-slate-500 mt-0.5">Biometric Verified</div>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td class="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap">
+                    <span class="text-xs sm:text-sm text-indigo-700 font-mono font-bold bg-indigo-50 border border-indigo-100 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg">{{ record.student.roll_number }}</span>
+                  </td>
+
+                  <td class="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-slate-600">
+                    <div class="flex items-center gap-1 sm:gap-2">{{ record.time_marked|time:'h:i A' }}</div>
+                  </td>
+
+                  <td class="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap">
+                    <span class="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-800 border border-emerald-200 shadow-sm">
+                      <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full mr-1.5"></span>
+                      Present
+                    </span>
+                  </td>
+                </tr>
+              {% empty %}
+                <tr>
+                  <td colspan="4" class="px-4 py-12 text-center text-slate-500 font-medium">No students scanned yet today.</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <script>
+        function toggleMenu(menuId, openIconId, closeIconId) {
+            const menu = document.getElementById(menuId);
+            const openIcon = document.getElementById(openIconId);
+            const closeIcon = document.getElementById(closeIconId);
+            
+            menu.classList.toggle('hidden');
+            openIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        }
+
+        const viewingDate = "{{ input_date }}";
+        let currentPresentCount = {{ present_count }};
+
+        // Grab UI elements for Hardware Status
+        const statusCard = document.getElementById('status-card');
+        const statusText = document.getElementById('status-text');
+        const statusDot = document.getElementById('status-dot');
+        const statusPing = document.getElementById('status-ping');
+
+        // Every 2 seconds, check the server for new scans AND hardware status
+        setInterval(function() {
+            fetch(`/api/present_count/?date=${viewingDate}`)
+                .then(response => response.json())
+                .then(data => {
+                    // 1. Reload if new student is detected
+                    if (data.count > currentPresentCount) {
+                        console.log("New student detected! Reloading dashboard...");
+                        window.location.reload();
+                    }
+                    
+                    // 2. Dynamically change UI based on Hardware Heartbeat
+                    if (data.hardware_active) {
+                        // Turn UI Vibrant & Active
+                        statusCard.className = "bg-gradient-to-br from-violet-600 via-indigo-600 to-fuchsia-600 rounded-2xl shadow-xl shadow-purple-200 border border-indigo-400 p-5 sm:p-6 flex items-center justify-between text-white relative overflow-hidden transition-all duration-500";
+                        statusText.innerText = "Scanning Active";
+                        statusText.className = "text-xl sm:text-2xl font-black tracking-tight text-white";
+                        statusDot.className = "relative inline-flex rounded-full h-3 w-3 sm:h-3.5 sm:w-3.5 bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)] transition-all duration-500";
+                        statusPing.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75";
+                    } else {
+                        // Turn UI Gray & Offline
+                        statusCard.className = "bg-gradient-to-br from-slate-600 via-slate-700 to-slate-800 rounded-2xl shadow-xl shadow-slate-200 border border-slate-500 p-5 sm:p-6 flex items-center justify-between text-white relative overflow-hidden transition-all duration-500";
+                        statusText.innerText = "Offline";
+                        statusText.className = "text-xl sm:text-2xl font-black tracking-tight text-slate-300";
+                        statusDot.className = "relative inline-flex rounded-full h-3 w-3 sm:h-3.5 sm:w-3.5 bg-slate-400 transition-all duration-500";
+                        statusPing.className = "hidden absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75";
+                    }
+                })
+                .catch(error => console.error('Live checking paused: Server busy.'));
+        }, 2000);
+    </script>
+  </body>
+</html>
