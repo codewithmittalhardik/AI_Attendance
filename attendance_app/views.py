@@ -179,7 +179,7 @@ def hardware_scan(request):
             marked_today = []
 
             for face_encoding in live_face_encodings:
-                matches = face_recognition.compare_faces(known_encodings, face_encoding, tolerance=0.5)
+                matches = face_recognition.compare_faces(known_encodings, face_encoding, tolerance=0.5) #Euclidean Distance
                 
                 if True in matches:
                     first_match_index = matches.index(True)
