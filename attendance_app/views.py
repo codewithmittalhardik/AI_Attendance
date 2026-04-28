@@ -155,7 +155,7 @@ def add_student(request):
 
 
 # ==========================================
-# 3. HARDWARE API VIEW (For the ESP32 Glasses)
+# 3. HARDWARE API VIEW 
 # ==========================================
 @csrf_exempt
 def hardware_scan(request):
