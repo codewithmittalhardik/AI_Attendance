@@ -169,8 +169,8 @@ def hardware_scan(request):
                 return JsonResponse({'error': 'Failed to decode image'}, status=400)
 
             rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            live_face_locations = face_recognition.face_locations(rgb_frame)
-            live_face_encodings = face_recognition.face_encodings(rgb_frame, live_face_locations)
+            live_face_locations = face_recognition.face_locations(rgb_frame) # HOG(Histogram of Oriented Gradients) method for faster detection on Pi
+            live_face_encodings = face_recognition.face_encodings(rgb_frame, live_face_locations) # Deep NN/CNN
 
             all_students = Student.objects.all()
             valid_students = [s for s in all_students if s.face_encoding]
